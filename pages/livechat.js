@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
-const livechat = () => {
-  const [showModal, setShowModal] = useState(false);
+const Livechat = () => {
   return (
    <div></div>
   )
 }
 
-export default livechat
+export default Livechat

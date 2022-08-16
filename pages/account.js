@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import bg from '../pages/assets/bgimage.jpg'
 import store from '../pages/assets/storename.png'
 import Image from 'next/image'
 
-function account() {
+function Account() {
   const [createAccount, setCreateAccount] = useState(true)
   return (
     <div className='h-screen'>
@@ -24,15 +23,15 @@ function account() {
                 <h1 className=''>Already have an account <span onClick={() => setCreateAccount(false)} className='mx-2  cursor-pointer text-yellow-900 tracking-wider underline uppercase underline-offset-4 text-md'>login</span></h1>
               </>
                 : <>
-                  <h1 className=' md:text-2xl uppercase'>Login to your Account</h1>
-                  <h1 className=''> Don't have account ?<span onClick={() => setCreateAccount(true)} className='mx-2  cursor-pointer text-yellow-900 tracking-wider underline uppercase underline-offset-4 text-md'>Signup</span></h1>
+                  <h1 className='md:text-2xl uppercase'>Login to your Account</h1>
+                  <h1 className=''>Don&apos;t have account ?<span onClick={() => setCreateAccount(true)} className='mx-2  cursor-pointer text-yellow-900 tracking-wider underline uppercase underline-offset-4 text-md'>Signup</span></h1>
                 </>
             }
             <h1 className=' md:w-2/3 md:text-lg tracking-wide hidden md:block'>
               Welcome to BhatBhateni app store. We are very thankfull to all customers
-              and members. We've been intregrating a fully fexible and intractive online
+              and members. We&apos;ve been intregrating a fully fexible and intractive online
               shopping platform in nepal as we appericiate your presence and your valuable time
-              spending on our store. We've provided so many products with posible details.
+              spending on our store. We&apos;ve provided so many products with posible details.
               <br /> if you have any queries related to products and wanna join our membership program then kindly
               join with us <span className=' text-blue-900 underline underline-offset-4'>simply clicking this</span>. As we have fully automative chat bot where we suggested you to put your queries
             </h1>
@@ -70,7 +69,7 @@ function account() {
   )
 }
 
-export default account
+export default Account
 
 
 

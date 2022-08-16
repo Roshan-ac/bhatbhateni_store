@@ -24,14 +24,14 @@ export default function Home(props) {
               const { title, category, description, image, price, rating } = data;
               return (
                 <Link href={`./product/${title}`} key={index}>
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full shadow-lg my-2 cursor-pointer">
-                  <a class=" cursor-pointer block relative h-48 rounded overflow-hidden hover:scale-110 transform transition duration-300">
-                    <img alt="ecommerce" class="h-full m-auto" src={image} />
+                <div className="lg:w-1/4 md:w-1/2 p-4 w-full shadow-lg my-2 cursor-pointer">
+                  <a className=" cursor-pointer block relative h-48 rounded overflow-hidden hover:scale-110 transform transition duration-300">
+                    <img alt="ecommerce" className="h-full m-auto" src={image} />
                   </a>
-                  <div class="mt-4 text-center">
-                    <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{category}</h3>
-                    <h2 class="text-gray-900 title-font text-lg font-medium">{title.substr(0, 20)}...</h2>
-                    <p class="mt-1">रु {price}</p>
+                  <div className="mt-4 text-center">
+                    <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">{category}</h3>
+                    <h2 className="text-gray-900 title-font text-lg font-medium">{title.substr(0, 20)}...</h2>
+                    <p className="mt-1">रु {price}</p>
                   </div>
                 </div>
                 </Link>

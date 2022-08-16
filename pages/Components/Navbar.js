@@ -31,11 +31,11 @@ const Navbar = () => {
     <div className='NavBar shadow-md top-0 sticky z-10 bg-white py-3 md:p-0'>
       <div className="navBarContent">
         <nav className='md:flex space-x-5 items-center'>
-          <div className="logo">
             <Link href={'/'} >
+          <div className="logo">
               <Image className="cursor-pointer" src={martLogo} height={80} width={200}></Image>
-            </Link>
           </div>
+            </Link>
           <div className="navigationItems">
             <ul className=' text-black flex space-x-2 text-md md:mx-20 pt-5 font-semibold tracking-wider'>
               <Link href={'/livechat'}>
@@ -64,9 +64,9 @@ const Navbar = () => {
               totalPrice += item.totalPrice
               return (
                 <li>
-                  <div className="flex  space-x-2 justify-between">
+                  <div key={item.id} className="flex  space-x-2 justify-between">
                     <div className="flex space-x-5">
-                    <img src={item.image} className='h-10 rounded-full w-10' alt="" srcset="" />
+                    <img src={item.image} className='h-10 rounded-full w-10' alt="" srcSet="" />
                     <h1 className='font-semibold tracking-wide'>{item.title.substr(0, 40)}..</h1>
                     </div>
                     <div className="flex items-center space-x-2 text-xl text-purple-900">
@@ -78,8 +78,8 @@ const Navbar = () => {
                 </li>
               )
             }):
-            <div className=' flex justify-center h-36 items-center'>
-              <h1 className=' font-serif font-normal tracking-wide text-md text-center'>You have'nt oder any products yet</h1>
+            <div className='flex justify-center h-36 items-center'>
+              <h1 className='font-serif font-normal tracking-wide text-md text-center'>You have'nt oder any products yet</h1>
               <h1></h1>
             </div>
           }
