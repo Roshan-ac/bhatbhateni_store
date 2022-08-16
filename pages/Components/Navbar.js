@@ -63,8 +63,8 @@ const Navbar = () => {
             count.map((item) => {
               totalPrice += item.totalPrice
               return (
-                <li>
-                  <div key={item.id} className="flex  space-x-2 justify-between">
+                <li key={item.id}>
+                  <div  className="flex  space-x-2 justify-between">
                     <div className="flex space-x-5">
                     <img src={item.image} className='h-10 rounded-full w-10' alt="" srcSet="" />
                     <h1 className='font-semibold tracking-wide'>{item.title.substr(0, 40)}..</h1>
@@ -79,7 +79,7 @@ const Navbar = () => {
               )
             }):
             <div className='flex justify-center h-36 items-center'>
-              <h1 className='font-serif font-normal tracking-wide text-md text-center'>You have'nt oder any products yet</h1>
+              <h1 className='font-serif font-normal tracking-wide text-md text-center'>You have&apos;nt oder any products yet</h1>
               <h1></h1>
             </div>
           }
