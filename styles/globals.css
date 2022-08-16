@@ -21,9 +21,11 @@ a {
     body {
         color: black;
         background: white;
+        overflow-x: hidden;
     }
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind screens;

@@ -1,17 +1,21 @@
 import '../styles/globals.css'
-import { config } from '@fortawesome/fontawesome-svg-core'
-import '@fortawesome/fontawesome-svg-core/styles.css'
-import Navbar from '../Components/Navbar'
-config.autoAddCss = false
+import Navbar from './Components/Navbar'
+import Footer from './Components/Footer'
+import { Provider } from 'react-redux'
+import Store from './store'
 
 function MyApp({ Component, pageProps }) {
-  return(
+  return (
+    <Provider store={Store}>
+      <>
+        <Navbar />
+        <Component {...pageProps} />
+        <Footer />
+      </>
+    </Provider>
+  )
 
-    <>
-    <Navbar/>
-    <Component {...pageProps} />
-    </>
-    )
+
 }
 
 export default MyApp
