@@ -1,15 +1,10 @@
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
+import React, {useState } from 'react'
 import Link from 'next/link'
-import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from './Slices/itemsSlice';
+
 
 export default function Home(props) {
   const [data, setData] = useState(props.data)
-  const dispatch = useDispatch()
-  dispatch(addItem(data))
-
   return (
     <div className={''}>
       <Head>
@@ -21,21 +16,20 @@ export default function Home(props) {
         <div className="ItemsContainer justify-center md:justify-start flex flex-wrap">
           {
             data.map((data, index) => {
-              const { title, category, description, image, price, rating } = data;
+              const {_id, title, img, price,slug} = data;
               return (
-                <Link href={`./product/${title}`} key={index}>
+                <Link href={`./product/${slug}`} key={_id}>
                 <div className="lg:w-1/4 md:w-1/2 p-4 w-full shadow-lg my-2 cursor-pointer">
                   <a className=" cursor-pointer block relative h-48 rounded overflow-hidden hover:scale-110 transform transition duration-300">
-                    <img alt="ecommerce" className="h-full m-auto" src={image} />
+                    <img alt="ecommerce" className="h-full m-auto" src={img} />
                   </a>
                   <div className="mt-4 text-center">
-                    <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">{category}</h3>
+                    <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">categeory</h3>
                     <h2 className="text-gray-900 title-font text-lg font-medium">{title.substr(0, 20)}...</h2>
                     <p className="mt-1">रु {price}</p>
                   </div>
                 </div>
                 </Link>
-
               )
             })
           }
@@ -51,7 +45,7 @@ export default function Home(props) {
 
 // This gets called on every request
 export async function getServerSideProps() {
-  const res = await fetch('http://localhost:3000/api/hello')
+  const res = await fetch('http://localhost:3000/api/getProducts')
   const data = await res.json();
   return { props: { data } }
 }
