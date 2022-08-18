@@ -41,7 +41,7 @@ const Navbar = () => {
               <Link href={'/livechat'}>
                 <li className='flex items-center space-x-2 rounded-md border-2 h-8 px-5 border-purple-900 cursor-pointer'><span><SiLivechat /></span><span>Chat</span></li>
               </Link>
-              <Link href={'/account'}>
+              <Link href={'/register'}>
                 <li className='flex items-center space-x-2 rounded-md border-2 h-8 px-5 border-purple-900 cursor-pointer'><span><VscAccount /></span><span>Account</span></li>
               </Link>
             </ul>

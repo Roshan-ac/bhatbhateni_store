@@ -1,20 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
 
-const initialState ={
-    value:[]
+export const selectProductBySlug = async (state, slug) => {
+    const response = await fetch('http://localhost:3000/api/getProducts');
+    const product = await response.json()
+    return  await product.find(item => item.slug === slug)
 }
-
-export const itemsSlice = createSlice({
-    name: 'items',
-    initialState,
-    reducers: {
-        addItem: (state,action) => {
-        state.value = action.payload
-        }
-    },
-})
-
-// Action creators are generated for each case reducer function
-export const { addItem } = itemsSlice.actions
-
-export default itemsSlice.reducer

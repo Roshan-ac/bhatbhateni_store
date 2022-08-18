@@ -11,14 +11,14 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      const { title, price, image, id } = action.payload
+      const { title, price, img, _id } = action.payload
       const item = {
-        id: id,
+        id: _id,
         count: 1,
         title: title,
         price: price,
         totalPrice: price,
-        image: image,
+        image: img,
       }
       state.items.push(item)
     },
