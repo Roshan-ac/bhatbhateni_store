@@ -105,7 +105,7 @@ function Login() {
                     <div className="absolute bg-gradient-to-b from-pink-600 to-pink-500 opacity-50 inset-0 z-0"></div>
                     <div className="w-full  max-w-lg z-10 mb-20">
                         <div className="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">Bhatbhateni Store</div>
-                        <div className="sm:text-sm xl:text-md text-gray-100 font-normal">Likley to inhance the deterrent of individual to make their perfect choice of goods. Store brings with unlimited choices as we keep surviliance to the priority of people and serve as perfect and deserving goods for all of our customers. Apart from it, we strongly consider the privacy of our customers is crucial things and we've mangaged to keep them very securly.</div>
+                        <div className="sm:text-sm xl:text-md text-gray-100 font-normal">Likley to inhance the deterrent of individual to make their perfect choice of goods. Store brings with unlimited choices as we keep surviliance to the priority of people and serve as perfect and deserving goods for all of our customers. Apart from it, we strongly consider the privacy of our customers is crucial things and we&apos;ve mangaged to keep them very securly.</div>
                     </div>
                 </div>
                 <div className="md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full  xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-white">
