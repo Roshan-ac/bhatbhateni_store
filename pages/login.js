@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';
 
 
-function login() {
+function Login() {
     const router = useRouter()
     const [credentials, setCredentials] = useState({ email: '', password: '' });
     const [isloading, setisloading] = useState(false);
@@ -195,7 +195,7 @@ function login() {
     )
 }
 
-export default login
+export default Login
 
 
 
