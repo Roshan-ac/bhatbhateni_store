@@ -31,7 +31,6 @@ const handler = async (req, res) => {
                 //issue token
                 user.token = token;
                 //send data to client
-                console.log(user)
                 res.status(200).send({ success: true, user: user })
             } else {
                 res.status(400).send({ success: false, message: 'Incorrect password' })

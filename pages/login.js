@@ -1,11 +1,14 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Link from 'next/link';
+
 
 function login() {
     const router = useRouter()
     const [credentials, setCredentials] = useState({ email: '', password: '' });
     const [isloading, setisloading] = useState(false);
-    const [message, setMessage] = useState('');
     const onChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
@@ -30,29 +33,72 @@ function login() {
                     localStorage.setItem('auth-token', jsonData.user.token)
                 }
                 setisloading(false);
-                setMessage('login successfull !');
-                setTimeout(() => {
-                    setMessage('')
-                }, 3000);
-
+                toast.success('Login successfull !', {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
                 setCredentials({ email: '', password: '' })
-                router.push('/')
+                setTimeout(() => {
+                    router.push('/')
+                }, 1000);
             } else {
                 setisloading(false);
-                setMessage(jsonData.message)
-                setTimeout(() => {
-                    setMessage('')
-                }, 3000);
-
+                toast.error(jsonData.message, {
+                    position: "bottom-left",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             }
         }
         else {
-            alert(`Field Shouldn't be empty`);
+            toast.warn('Input field should not be empty', {
+                position: "bottom-left",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     }
+    useEffect(() => {
+        localStorage.removeItem('auth-token')
+    }, [])
 
     return (
         <div className="relative min-h-screen flex ">
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
                 <div className="sm:w-1/2 xl:w-3/5 h-full hidden md:flex flex-auto items-end justify-end p-10 pr-20 overflow-hidden bg-purple-900 text-white bg-no-repeat bg-cover relative"
                     style={{ "backgroundImage": "url(https://images.unsplash.com/photo-1543269865-0a740d43b90c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)" }}>
@@ -86,9 +132,6 @@ function login() {
                             <span className="h-px w-16 bg-gray-200"></span>
                             <span className="text-gray-300 font-normal">or continue with</span>
                             <span className="h-px w-16 bg-gray-200"></span>
-                        </div>
-                        <div className={`error `}>
-                            <h1 className={`text-center ${message === 'login successfull !' ? 'text-green-700' : 'text-red-700'}  font-serif font-semibold tracking-wider text-md`}>{message}</h1>
                         </div>
                         <div className="w-full max-w-lg">
                             <div className="flex flex-wrap -mx-3 mb-4">
@@ -136,12 +179,12 @@ function login() {
                                         }
                                     </button>
                                 </div>
-                                {/* <div >
-                  <span>Already have an account ?</span>
-                  <Link href="./login">
-                   <span>Login.</span>
-                  </Link>
-                </div> */}
+                                <div className=' space-x-2 text-center' >
+                                    <span>Register an new account</span>
+                                    <Link href="./register">
+                                        <span className=' cursor-pointer font-serif tracking-wider underline underline-offset-4 font-semibold'>Register.</span>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>

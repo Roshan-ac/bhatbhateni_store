@@ -5,13 +5,13 @@ import User from '../../models/user'
 const handler = async (req, res) => {
     try {
         const auth = await authentication(req, res);
-        if(auth){
+        if (auth) {
             const { email } = auth
             const user = await User.findOne({ email }).select('-password');
-            if(user){
+            if (user) {
                 res.status(200).send({ success: true, data: user });
-            }else{
-                res.status(200).send({ success: false, message:'auth-token expired'});
+            } else {
+                res.status(200).send({ success: false, message: 'auth-token expired' });
             }
         }
     } catch (err) {

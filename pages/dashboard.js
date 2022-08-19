@@ -1,41 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { statuses } from './Slices/userSlice';
 const Dashboard = () => {
+  const { data } = useSelector((state) => state.user.data)
   const router = useRouter()
-  const [user, setUser] = useState({ firstname: '', lastname: '', email: '', profile: '', username: '' })
   useEffect(() => {
-    const token = localStorage.getItem('auth-token');
-    if (token) {
-      const fetchdata = async () => {
-        const requestOptions = {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'auth-token': token
-          },
-        };
-        const response = await fetch('http://localhost:3000/api/getuser', requestOptions)
-        const jsonData = await response.json()
-        if (jsonData.success) {
-          setUser({
-            firstname: jsonData.data.firstname,
-            lastname: jsonData.data.lastname,
-            email: jsonData.data.email,
-            profile: jsonData.data.profilepicture,
-            username: jsonData.data.username
-          })
-        }
-        else {
-          localStorage.removeItem('auth-token')
-          router.push('/register')
-        }
-
-      }
-      fetchdata()
+    if (!localStorage.getItem('auth-token')) {
+      router.push('/register')
+      return (<></>)
     }
   }, [])
-
-
+  if (!data) {
+    router.push('/login')
+    return (<></>)
+  }
   return (
     <div className="container mx-auto my-5 p-5">
       <div className="md:flex no-wrap md:-mx-2 ">
@@ -46,7 +25,7 @@ const Dashboard = () => {
                 src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
                 alt="" />
             </div>
-            <h1 className="text-gray-900 font-bold text-xl leading-8 my-1">{user.username}</h1>
+            <h1 className="text-gray-900 font-bold text-xl leading-8 my-1">{data.username}</h1>
             <h3 className="text-gray-600 font-lg text-semibold leading-6">Owner at Her Company Inc.</h3>
             <p className="text-sm text-gray-500 hover:text-gray-600 leading-6">Lorem ipsum dolor sit amet
               consectetur adipisicing elit.
@@ -82,11 +61,11 @@ const Dashboard = () => {
               <div className="grid md:grid-cols-2 text-sm">
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">First Name</div>
-                  <div className="px-4 py-2">{user.firstname}</div>
+                  <div className="px-4 py-2">{data.firstname}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Last Name</div>
-                  <div className="px-4 py-2">{user.lastname}</div>
+                  <div className="px-4 py-2">{data.lastname}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Contact No.</div>
@@ -99,7 +78,7 @@ const Dashboard = () => {
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Email.</div>
                   <div className="px-4 py-2">
-                    <a className="text-blue-800" href="mailto:jane@example.com">{user.email}</a>
+                    <a className="text-blue-800" href="mailto:jane@example.com">{data.email}</a>
                   </div>
                 </div>
               </div>

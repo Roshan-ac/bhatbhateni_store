@@ -12,15 +12,24 @@ export const counterSlice = createSlice({
   reducers: {
     addItem: (state, action) => {
       const { title, price, img, _id } = action.payload
-      const item = {
-        id: _id,
-        count: 1,
-        title: title,
-        price: price,
-        totalPrice: price,
-        image: img,
+      const itemsinCart = state.items.find((item) => item.id === _id)
+      if (itemsinCart) {
+        itemsinCart.count += 1
+        itemsinCart.totalPrice += price
+      } else {
+        const item = {
+          id: _id,
+          count: 1,
+          title: title,
+          price: price,
+          totalPrice: price,
+          image: img,
+        }
+        state.items.push(item)
       }
-      state.items.push(item)
+
+
+
     },
     deleteItem: (state) => {
 

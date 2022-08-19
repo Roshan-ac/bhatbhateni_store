@@ -11,7 +11,7 @@ const verifyToken = (req, res) => {
         const decoded = jwt.verify(token, process.env.TOKEN_KEY);
         return decoded;
     } catch (err) {
-        return res.status(401).send("Invalid Token");
+        res.status(401).send({ success: false, message: 'unauthorize access' });
     }
 };
 

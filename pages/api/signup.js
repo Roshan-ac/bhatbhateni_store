@@ -16,7 +16,7 @@ const handler = async (req, res) => {
             // check whether user using email already exist on database
             const isAlreadyUser = await User.findOne({ email })
             if (isAlreadyUser) {
-                return res.status(400).send({ success: false, message: 'User Already Exist. Try login with your valid password' })
+                return res.status(400).send({ success: false, message: 'Sorry ! email already used' })
             }
 
             //Encrypt user password

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Account() {
-  const token = localStorage.getItem('auth-token');
   const router = useRouter()
+  const [isUser, setIsUser] = useState(false)
   useEffect(() => {
+    const token = localStorage.getItem('auth-token');
     if (token) {
+      setIsUser(true);
       router.replace('/dashboard')
     }
 
@@ -24,8 +27,7 @@ function Account() {
     if ((firstname && lastname && email && password)) {
       setisloading(true);
       firstname = credentials.firstname.toLowerCase().trim();
-      lastname = credentials.lastname.toLowerCase().trim();
-      const username = (firstname + lastname + Math.floor((Math.random() * 100) + 10))
+      const username = (firstname + Math.floor((Math.random() * 100) + 10))
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -35,17 +37,71 @@ function Account() {
       const jsonData = await response.json()
       if (jsonData.success) {
         setisloading(false);
+        toast.success('user register successfully !', {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setCredentials({ firstname: '', lastname: '', email: '', password: '' })
+        setCredentials({ email: '', password: '' })
+        setTimeout(() => {
+          router.push('/login')
+        }, 1000);
+      } else {
+        toast.error(jsonData.message, {
+          position: "bottom-left",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setisloading(false)
       }
     }
     else {
-      alert(`Field Shouldn't be empty`);
+      toast.warn('Input field should not be empty', {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
   return (
     <div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       {
-        !token &&
+        !isUser &&
         <div className="relative min-h-screen flex ">
           <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
             <div className="sm:w-1/2 xl:w-3/5 h-full hidden md:flex flex-auto items-end justify-end p-10 pr-20 overflow-hidden bg-purple-900 text-white bg-no-repeat bg-cover relative"

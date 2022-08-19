@@ -1,6 +1,23 @@
+import { createSlice } from "@reduxjs/toolkit";
 
-export const selectProductBySlug = async (state, slug) => {
-    const response = await fetch('http://localhost:3000/api/getProducts');
-    const product = await response.json()
-    return  await product.find(item => item.slug === slug)
-}
+
+
+const productSlice = createSlice({
+    name: 'product',
+    initialState: {
+        data: [],
+        filterItem: false
+    },
+    reducers: {
+        setData(state, action) {
+            state.data = action.payload
+        },
+        filterSlug(state, action) {
+            state.filterItem= state.data.filter(state => state.slug === action.payload)
+        }
+    }
+})
+
+export const { setData, filterSlug } = productSlice.actions
+
+export default productSlice.reducer
