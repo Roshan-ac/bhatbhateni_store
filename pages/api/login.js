@@ -14,7 +14,7 @@ const handler = async (req, res) => {
     });
     if (req.method === 'POST') {
         try {
-            const { email, password } = req.body
+            const { email, password } = req.body 
             // Validate user input
             if (!(email && password)) {
                 res.status(400).send('All inputs should not be empty')
