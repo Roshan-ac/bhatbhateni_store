@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: ['static.vecteezy.com','fakestoreapi.com'],
-  },
+  }
 }
 
 module.exports = nextConfig

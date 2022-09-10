@@ -51,7 +51,7 @@ export const getUser = createAsyncThunk('user/fetch', async () => {
             'auth-token': token
         },
     };
-    const response = await fetch('http://localhost:3000/api/getuser', requestOptions)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_API}getuser`, requestOptions)
     const jsonData = await response.json()
     return jsonData
 })

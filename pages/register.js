@@ -32,7 +32,7 @@ function Account() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: username, firstname: credentials.firstname, lastname: credentials.lastname, email: credentials.email, password: credentials.password })
       };
-      const response = await fetch('http://localhost:3000/api/signup', requestOptions)
+      const response = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_API}signup`, requestOptions)
       const jsonData = await response.json()
       if (jsonData.success) {
         setisloading(false);
@@ -51,6 +51,7 @@ function Account() {
           router.push('/login')
         }, 1000);
       } else {
+        console.log(jsonData)
         toast.error(jsonData.message, {
           position: "bottom-left",
           autoClose: 2000,

@@ -10,17 +10,18 @@ import { FaShippingFast } from 'react-icons/fa'
 import { decrement, increment, clearItem } from '../Slices/counterSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router'
-import { statuses } from '../Slices/userSlice';
+import { MakeOder } from '../Slices/oderSlice';
 import { logout, getUser } from '../Slices/userSlice';
-
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Navbar = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   let totalPrice = 0
-  const count = useSelector((state) => state.counter.items)
+  const { items: count, totalCount } = useSelector((state) => state.counter)
+  const { status: value } = useSelector((state) => state.oder)
   const { data, success } = useSelector((state) => state.user.data)
   const { status } = useSelector((state) => state.user)
   const ref = useRef()
@@ -38,6 +39,17 @@ const Navbar = () => {
     if (localStorage.getItem('auth-token')) {
       dispatch(getUser())
     }
+    // if (value) {
+    //   toast.success('Your oder have created', {
+    //     position: "top-center",
+    //     autoClose: 1000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //   });
+    // }
   }, [router.query])
 
   const handleLogout = () => {
@@ -45,8 +57,27 @@ const Navbar = () => {
     localStorage.removeItem('auth-token');
   }
 
+  const handleOder = () => {
+    const { _id, email, phonenumber, address } = data
+    if (_id && email && phonenumber && address) {
+
+    }else{
+      router.push('/dashboard')
+    }
+  }
   return (
-    <nav className='px-4 py-3 shadow-md top-0 sticky bg-white z-10'>
+    <nav className='px-4 py-3 shadow-md top-0 sticky w-full h-max bg-white z-10 overflow-x-clip'>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="md:flex space-y-2 items-center justify-between">
         <div className="logo">
           <Link href={'/'} >
@@ -56,7 +87,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navItem mx-2">
-          <div className=' md:flex items-center space-y-5 md:space-y-0'>
+          <div className=' md:flex items-center space-y-6 md:space-y-0'>
             <ul className=' text-black flex space-x-2 text-md md:mx-20 font-semibold tracking-wider'>
               <Link href={'/livechat'}>
                 <li className='flex items-center space-x-2 rounded-md border-2 px-5 border-purple-900 cursor-pointer'><span><SiLivechat /></span><span>Chat</span></li>
@@ -68,12 +99,17 @@ const Navbar = () => {
               }
             </ul>
             <div className="flex items-center">
-              <div className="shopingCart">
-                <MdShoppingCart onClick={toogleSidebar} className='text-2xl cursor-pointer' />
+              <div>
+                <div className={`${totalCount === 0 ? 'hidden' : 'visible'} absolute top-[9.5rem] mx-4 md:top-9`}>
+                  <h1 className='px-[0.4rem] bg-purple-100 rounded-full text-sm font-bold font-sans text-red-600'>{totalCount}</h1>
+                </div>
+                <div className="shopingCart">
+                  <MdShoppingCart onClick={toogleSidebar} className='text-2xl cursor-pointer' />
+                </div>
               </div>
               {
                 success &&
-                <div className="group inline-block mx-5">
+                <div className="group inline-block ml-10">
                   <button className=" space-x-2 rounded-b-none outline-none focus:outline-none border px-4 py-1 bg-gray-200  rounded-md flex items-center justify-between w-30">
                     <VscAccount size={20} />
                     <span>{data.username}</span>
@@ -92,7 +128,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div ref={ref} className=" h-[100vh] md:w-2/5 w-full bg-purple-50  absolute transform translate-x-full top-0 right-0  transition-transform ">
+      <div ref={ref} className=" h-[100vh] md:w-2/5 w-full bg-purple-50 absolute transform translate-x-full top-0 right-0  transition-transform ">
         <h2 className='text-center font-semibold tracking-wide mt-6 '>My Cart</h2>
         <div className="text-red-700 closeButton absolute right-4 text-2xl top-5 cursor-pointer p-1">
           <MdKeyboardBackspace className='rounded-full' onClick={toogleSidebar} />
@@ -128,7 +164,7 @@ const Navbar = () => {
           <h1 className='mx-10 my-2 font-semibold tracking-wide'>Total : रु <span>{Math.ceil(totalPrice)}</span></h1>
         </div>
         <div className="buttons flex justify-between">
-          <li className='mx-10 w-28 flex items-center space-x-2 rounded-md border-2 h-8 px-5 border-purple-900 cursor-pointer'><button className='flex items-center space-x-3 tracking-wide font-serif' onClick={() => dispatch(clearItem())} ><FaShippingFast /> <span>Oder</span> </button></li>
+          <li className='mx-10 w-28 flex items-center space-x-2 rounded-md border-2 h-8 px-5 border-purple-900 cursor-pointer'><button className='flex items-center space-x-3 tracking-wide font-serif' onClick={handleOder} ><FaShippingFast /> <span>Oder</span> </button></li>
           <li className='mx-10 w-28 flex items-center space-x-2 rounded-md border-2 h-8 px-5 border-purple-900 cursor-pointer'><button className='flex items-center space-x-3 tracking-wide font-serif' onClick={() => dispatch(clearItem())} ><VscTrash /> <span>Clear</span> </button></li>
         </div>
       </div>

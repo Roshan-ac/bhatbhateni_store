@@ -20,17 +20,21 @@ function Login() {
             setisloading(true);
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin':'*' 
+                },
                 body: JSON.stringify({ email: credentials.email, password: credentials.password })
             };
-            const response = await fetch('http://localhost:3000/api/login', requestOptions)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_API}login`, requestOptions)
             const jsonData = await response.json()
             if (jsonData.success) {
                 if (localStorage.getItem('auth-token')) {
                     localStorage.removeItem('auth-token')
-                    localStorage.setItem('auth-token', jsonData.user.token)
+                    localStorage.setItem('auth-token', jsonData.token)
                 } else {
-                    localStorage.setItem('auth-token', jsonData.user.token)
+                    localStorage.setItem('auth-token', jsonData.token)
                 }
                 setisloading(false);
                 toast.success('Login successfull !', {
@@ -73,6 +77,7 @@ function Login() {
     }
     useEffect(() => {
         localStorage.removeItem('auth-token')
+        console.log(process.env.NEXT_PUBLIC_LOCAL_API)
     }, [])
 
     return (

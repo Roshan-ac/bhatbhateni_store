@@ -7,11 +7,9 @@ import Store from '../store'
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={Store}>
-      <>
-        <Navbar />
-        <Component {...pageProps} />
-        <Footer />
-      </>
+      <Navbar />
+      <Component {...pageProps} />
+      <Footer />
     </Provider>
   )
 

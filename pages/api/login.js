@@ -3,8 +3,15 @@ import connectDb from '../../middlewares/mongodb'
 import bcrypt from 'bcryptjs'
 import User from '../../models/user'
 import jwt from 'jsonwebtoken'
+import NextCors from 'nextjs-cors'
 
 const handler = async (req, res) => {
+    await NextCors(req, res, {
+        // Options
+        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+        origin: '*',
+        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    });
     if (req.method === 'POST') {
         try {
             const { email, password } = req.body
@@ -28,10 +35,9 @@ const handler = async (req, res) => {
                         expiresIn: "2h",
                     }
                 );
-                //issue token
-                user.token = token;
+
                 //send data to client
-                res.status(200).send({ success: true, user: user })
+                res.status(200).send({ success: true, token: token })
             } else {
                 res.status(400).send({ success: false, message: 'Incorrect password' })
             }
