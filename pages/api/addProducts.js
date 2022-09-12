@@ -3,6 +3,7 @@ import product from '../../models/product'
 import NextCors from 'nextjs-cors'
 
 const handler = async (req, res) => {
+    const data = req.body
     await NextCors(req, res, {
         // Options
         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
@@ -10,14 +11,14 @@ const handler = async (req, res) => {
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     });
     if (req.method === 'POST') {
-        for (let i = 0; i < req.body.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             const p =  new product({
-                title: req.body[i].title,
-                slug: req.body[i].slug,
-                desc: req.body[i].desc,
-                img: req.body[i].img,
-                price: req.body[i].price,
-                size: req.body[i].size
+                title: data[i].title,
+                slug: data[i].slug,
+                desc: data[i].desc,
+                img: data[i].img,
+                price: data[i].price,
+                size: data[i].size
             })
             await p.save()
         }
