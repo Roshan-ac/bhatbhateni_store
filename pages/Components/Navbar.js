@@ -19,11 +19,11 @@ import 'react-toastify/dist/ReactToastify.css';
 const Navbar = () => {
   const router = useRouter()
   const dispatch = useDispatch()
+  const [isAuth, setIsAuth] = useState(false)
   let totalPrice = 0
   const { items: count, totalCount } = useSelector((state) => state.counter)
-  const { status: value } = useSelector((state) => state.oder)
   const { data, success } = useSelector((state) => state.user.data)
-  const { status } = useSelector((state) => state.user)
+
   const ref = useRef()
   const toogleSidebar = () => {
     if (ref.current.classList.contains('translate-x-full')) {
@@ -37,6 +37,7 @@ const Navbar = () => {
   }
   useEffect(() => {
     if (localStorage.getItem('auth-token')) {
+      setIsAuth(true)
       dispatch(getUser())
     }
     // if (value) {
@@ -58,12 +59,10 @@ const Navbar = () => {
   }
 
   const handleOder = () => {
-    const { _id, email, phonenumber, address } = data
-    if (_id && email && phonenumber && address) {
-
-    }else{
+    !isAuth ?
+      router.push('/register')
+      :
       router.push('/dashboard')
-    }
   }
   return (
     <nav className='px-4 py-3 shadow-md top-0 sticky w-full h-max bg-white z-10 overflow-x-clip'>
